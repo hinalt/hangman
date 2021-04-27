@@ -1,0 +1,34 @@
+*{
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.App {
+margin-top:3rem;
+
+  & .bar{
+    width: 20%;
+    position: relative;
+     & img{
+      width: 100%;
+       height: 100%;
+     }
+
+     & .folk{
+       position: absolute;
+      //  width: 15%;
+       right: 0;
+       top: 85%;
+       width: 60%;
+       transform: translate(35%);
+      & img{
+       width: 100%;
+      }
+    }
+  }
+
+ 
+}
+
+
