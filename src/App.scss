@@ -1,13 +1,18 @@
+@import './constants//constants.scss';
+
 *{
   margin: 0;
-  padding:0;
-  box-sizing: border-box;
+  padding: 0;
+  
 }
-
 .App {
-margin-top:3rem;
+  height: 100vh;
+  width: 100vw;
+position: relative;
+
 
   & .bar{
+    padding-top: 5rem;
     width: 20%;
     position: relative;
      & img{
@@ -28,6 +33,79 @@ margin-top:3rem;
     }
   }
 
+  & .mistakes{
+    position:absolute;
+    left: 40%;
+    & h{
+      font-size: 4rem;
+      letter-spacing: 0.8rem;
+      color:#4d69fa;
+      text-transform: uppercase;
+    }
+   
+  }
+
+  & .form{
+    
+    position:absolute;
+    bottom: 5%;
+    left:50%;
+    transform: translate(-50%);
+
+  & .form-control{
+    width: 20px;
+    height: 30px;
+    padding:5px;
+    margin:2px;
+    background-color:$input-background-color;
+    color:white;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  }
+
+  & .overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+    & .text{
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+      & .main_text{
+        font-size: 50px;
+        color: white;
+        display: block;
+      }
+      & .button_text{
+        margin-top: 10px;
+        font-size: 22px;
+        color:$secondary-color;
+        border-color: $secondary-color;
+        border-width: medium;
+        border-style: dashed;
+        padding: 5px 20px;
+        border-radius: 30px;
+        position:absolute;
+        left:20%;
+      }
+    }
+    
+  
+  }
+  
  
 }
 
