@@ -36,6 +36,7 @@ function App() {
   const [showOverlay, setShowOverlay] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const [allEnteredLetters, setAllEnteredLetters] = useState([]);
+  const [error, setError] = useState(null)
   async function getWord() {
     const url =
       "http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&minLength=5&maxLength=15&limit=1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
@@ -111,10 +112,11 @@ function App() {
   }
 
   const handleSubmit = () => {
-   
+
+    setError(null)
     console.log(inputValueRef.current.value)
     if(!inputValueRef.current.value) {
-      alert('empty letter is not allowed.')
+     setError('empty letter is not allowed.')
       return
     }
     inputValueRef.current.value = '';
@@ -123,7 +125,7 @@ function App() {
     );
     console.log(isLetterAllreadyEntered);
     if (isLetterAllreadyEntered) {
-      alert(currentLetter + " is already entered.");
+      setError(currentLetter + " is already entered.")
       setAllEnteredLetters((preValue) => [...preValue, currentLetter]);
       return;
     }
@@ -283,6 +285,7 @@ function App() {
         >
           submit
         </button>
+        <p>{error}</p>
         </div> 
       </div>
     </div>

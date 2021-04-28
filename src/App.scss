@@ -46,7 +46,6 @@ position: relative;
   }
 
   & .form{
-    
     position:absolute;
     bottom: 8%;
     left:50%;
@@ -69,6 +68,7 @@ position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    display: block;
     & .input-control{
       padding:5px;
       outline:none;
@@ -109,6 +109,9 @@ position: relative;
         opacity: 0.7;
         cursor: pointer;
       }
+    }
+    & p{
+      color: red;
     }
   }
   
