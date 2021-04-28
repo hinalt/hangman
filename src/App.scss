@@ -48,14 +48,14 @@ position: relative;
   & .form{
     
     position:absolute;
-    bottom: 5%;
+    bottom: 8%;
     left:50%;
     transform: translate(-50%);
 
   & .form-control{
-    width: 20px;
+    width: 23px;
     height: 30px;
-    padding:5px;
+    padding:7px;
     margin:2px;
     background-color:$input-background-color;
     color:white;
@@ -64,6 +64,54 @@ position: relative;
     font-weight: bold;
     border-radius: 5px;
   }
+  & .input-form-control{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & .input-control{
+      padding:5px;
+      outline:none;
+      border-bottom: black;
+      color:black;
+      border:none;
+      border-bottom: 1px solid $input-background-color;
+      text-align: center;
+     &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: $input-background-color;
+        font-size: medium;
+        text-transform: capitalize;
+        opacity: 1; /* Firefox */
+      }
+      &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $input-background-color;
+        font-size: medium;
+        text-transform: capitalize;
+      }
+      
+      &::-ms-input-placeholder { /* Microsoft Edge */
+        color: $input-background-color;
+        font-size: medium;
+        text-transform: capitalize;
+      }
+    }
+    & button{
+      color:white;
+      background-color:$button-color;
+      outline: none;
+      border:none;
+      border-radius: 10px;
+      padding: 10px 40px;
+      font-size: 15px;
+      text-transform: uppercase;
+      margin-left: 1rem;
+      &:hover{
+        opacity: 0.7;
+        cursor: pointer;
+      }
+    }
+  }
+  
   }
 
   & .overlay {

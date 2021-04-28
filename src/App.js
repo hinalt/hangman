@@ -10,6 +10,8 @@ import folk6 from "./assets/images/6.png";
 import folk7 from "./assets/images/7.png";
 import folk8 from "./assets/images/8.png";
 import folk9 from "./assets/images/9.png";
+import folk10 from "./assets/images/10.png";
+import folk11 from "./assets/images/11.png";
 
 function App() {
   const [currentLetter, setCurrentLetter] = useState(null);
@@ -24,25 +26,25 @@ function App() {
   const inputRef9 = useRef(null);
   const inputRef10 = useRef(null);
   const inputRef11 = useRef(null);
-  const inputValueRef = useRef(null)
+  const inputValueRef = useRef(null);
 
   const [currentWord, setCurrentWord] = useState(null);
-  const [currentFolk, setCurrentFolk] =useState(null)
-  const [currentFolkIndex, setCurrentFonkIndex] = useState(0)
-  const [wrongLetters, setWrongLetters] = useState([])
- const [correctCount, setCorrectCount] =useState(0)
- const [showOverlay, setShowOverlay] = useState(false)
- const [feedback, setFeedback] = useState(null)
+  const [currentFolk, setCurrentFolk] = useState(null);
+  const [currentFolkIndex, setCurrentFonkIndex] = useState(0);
+  const [wrongLetters, setWrongLetters] = useState([]);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+  const [allEnteredLetters, setAllEnteredLetters] = useState([]);
   async function getWord() {
     const url =
       "http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&minLength=5&maxLength=15&limit=1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
     const res = await fetch(url);
     const data = await res.json();
-    let word = data[0].word
+    let word = data[0].word;
     console.log(word);
-    if(word.length>11) word = word.slice(0,11)
+    if (word.length > 11) word = word.slice(0, 11);
     setCurrentWord(word);
-    
   }
 
   useState(() => {
@@ -52,7 +54,7 @@ function App() {
   function getAllInputs() {
     const inputBox = [];
     let ref;
-    if(!currentWord) return
+    if (!currentWord) return;
     for (let i = 1; i <= currentWord.length; i++) {
       switch (i) {
         case 1:
@@ -103,117 +105,143 @@ function App() {
     }
     return inputBox;
   }
+
   if (inputRef1.current) {
     console.log(inputRef1.current.value);
   }
 
   const handleSubmit = () => {
-    
-    inputValueRef.current.value = null
-    let indices = [];
-    for(var i=0; i<currentWord.length;i++) {
-        if (currentWord[i] === currentLetter) indices.push(i+1);
+   
+    console.log(inputValueRef.current.value)
+    if(!inputValueRef.current.value) {
+      alert('empty letter is not allowed.')
+      return
     }
-    console.log(indices)
-    if(indices.length == 0){
-     setWrongLetters((prevValue)=>{
-       return [...prevValue,currentLetter]
-     })
-      console.log(currentFolkIndex)
+    inputValueRef.current.value = '';
+    const isLetterAllreadyEntered = allEnteredLetters.find(
+      (letter) => letter === currentLetter
+    );
+    console.log(isLetterAllreadyEntered);
+    if (isLetterAllreadyEntered) {
+      alert(currentLetter + " is already entered.");
+      setAllEnteredLetters((preValue) => [...preValue, currentLetter]);
+      return;
+    }
+    setAllEnteredLetters((preValue) => [...preValue, currentLetter]);
 
-      switch (currentFolkIndex+1) {
+    let indices = [];
+    for (var i = 0; i < currentWord.length; i++) {
+      if (currentWord[i] === currentLetter) indices.push(i + 1);
+    }
+    console.log(indices);
+    if (indices.length == 0) {
+      setWrongLetters((prevValue) => {
+        return [...prevValue, currentLetter];
+      });
+      console.log(currentFolkIndex);
+
+      switch (currentFolkIndex + 1) {
         case 1:
-          setCurrentFolk(folk1)
+          setCurrentFolk(folk1);
           break;
         case 2:
-          setCurrentFolk(folk2)
+          setCurrentFolk(folk2);
           break;
         case 3:
-          setCurrentFolk(folk3)
+          setCurrentFolk(folk3);
           break;
         case 4:
-          setCurrentFolk(folk4)
+          setCurrentFolk(folk4);
           break;
         case 5:
-          setCurrentFolk(folk5)
+          setCurrentFolk(folk5);
           break;
         case 6:
-          setCurrentFolk(folk6)
+          setCurrentFolk(folk6);
           break;
         case 7:
-          setCurrentFolk(folk7)
+          setCurrentFolk(folk7);
           break;
         case 8:
-          setCurrentFolk(folk8)
+          setCurrentFolk(folk8);
           break;
         case 9:
-          setCurrentFolk(folk9)
+          setCurrentFolk(folk9);
+          break;
+        case 10:
+          setCurrentFolk(folk10);
+          break;
+        case 11:
+          setCurrentFolk(folk11);
           break;
       }
-      
-      setCurrentFonkIndex((preValue)=>{
-        return preValue + 1
-      })
-     if(currentFolkIndex+1 === 9){
-       setFeedback('GAME OVER')
-      setShowOverlay(true)
-     } 
-    }else{
-      
-      indices.map(item=>{
+
+      setCurrentFonkIndex((preValue) => {
+        return preValue + 1;
+      });
+      if (currentFolkIndex + 1 === 11) {
+        setFeedback("GAME OVER");
+        setShowOverlay(true);
+      }
+    } else {
+      indices.map((item) => {
         switch (item) {
           case 1:
-           inputRef1.current.value = currentLetter
+            inputRef1.current.value = currentLetter;
             break;
           case 2:
-            inputRef2.current.value = currentLetter
+            inputRef2.current.value = currentLetter;
             break;
           case 3:
-            inputRef3.current.value = currentLetter
+            inputRef3.current.value = currentLetter;
             break;
           case 4:
-            inputRef4.current.value = currentLetter
+            inputRef4.current.value = currentLetter;
             break;
           case 5:
-            inputRef5.current.value = currentLetter
+            inputRef5.current.value = currentLetter;
             break;
           case 6:
-            inputRef6.current.value = currentLetter
+            inputRef6.current.value = currentLetter;
             break;
           case 7:
-            inputRef7.current.value = currentLetter
+            inputRef7.current.value = currentLetter;
             break;
           case 8:
-            inputRef8.current.value = currentLetter
+            inputRef8.current.value = currentLetter;
             break;
           case 9:
-            inputRef9.current.value = currentLetter
+            inputRef9.current.value = currentLetter;
             break;
           case 10:
-            inputRef10.current.value = currentLetter
+            inputRef10.current.value = currentLetter;
             break;
           case 11:
-            inputRef11.current.value = currentLetter
+            inputRef11.current.value = currentLetter;
             break;
         }
-      })
-      if(correctCount+1 === currentWord.length){
-        setFeedback('YOU WON')
-        setShowOverlay(true)
+      });
+      console.log(correctCount)
+      console.log(currentWord.length)
+      console.log(indices.length)
+      if (correctCount + indices.length === currentWord.length) {
+        setFeedback("YOU WON");
+        setShowOverlay(true);
       }
-      setCorrectCount(prevValue=>prevValue+indices.length)
+      setCorrectCount((prevValue) => prevValue + indices.length);
     }
-
-    
-   
-  }
+  };
 
   return (
     <div className="App">
-      <div className="overlay" onClick={()=>{
-        setShowOverlay(false)
-        window.location.reload()
-      }} style={{display:[!showOverlay?'none':'block']}}>
+      <div
+        className="overlay"
+        onClick={() => {
+          setShowOverlay(false);
+          window.location.reload();
+        }}
+        style={{ display: [!showOverlay ? "none" : "block"] }}
+      >
         <div className="text">
           <h className="main_text">{feedback}</h>
           <h className="button_text">NEW WORD</h>
@@ -232,13 +260,16 @@ function App() {
       </div>
 
       <div className="form">
-      {getAllInputs() && <div style={{ display: "block" }}>
-          {getAllInputs().map((item) => {
-            return item;
-          })}
-        </div>
-}
+        {getAllInputs() && (
+          <div style={{ display: "block" }}>
+            {getAllInputs().map((item) => {
+              return item;
+            })}
+          </div>
+        )}
+        <div className="input-form-control">
         <input
+          className="input-control"
           ref={inputValueRef}
           type="text"
           placeholder="please enter a letter"
@@ -247,7 +278,12 @@ function App() {
             setCurrentLetter(e.target.value);
           }}
         />
-        <button onClick={handleSubmit}>submit</button>
+        <button
+          onClick={handleSubmit}
+        >
+          submit
+        </button>
+        </div> 
       </div>
     </div>
   );
