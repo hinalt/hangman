@@ -42,7 +42,6 @@ function App() {
     const res = await fetch(url);
     const data = await res.json();
     let word = data[0].word;
-    console.log(word);
     if (word.length > 11) word = word.slice(0, 11);
     setCurrentWord(word);
   }
@@ -111,17 +110,14 @@ function App() {
   }
 
   const handleSubmit = () => {
-   
-    console.log(inputValueRef.current.value)
-    if(!inputValueRef.current.value) {
-      alert('empty letter is not allowed.')
-      return
+    if (!inputValueRef.current.value) {
+      alert("empty letter is not allowed.");
+      return;
     }
-    inputValueRef.current.value = '';
+    inputValueRef.current.value = "";
     const isLetterAllreadyEntered = allEnteredLetters.find(
       (letter) => letter === currentLetter
     );
-    console.log(isLetterAllreadyEntered);
     if (isLetterAllreadyEntered) {
       alert(currentLetter + " is already entered.");
       setAllEnteredLetters((preValue) => [...preValue, currentLetter]);
@@ -133,12 +129,11 @@ function App() {
     for (var i = 0; i < currentWord.length; i++) {
       if (currentWord[i] === currentLetter) indices.push(i + 1);
     }
-    console.log(indices);
+    
     if (indices.length == 0) {
       setWrongLetters((prevValue) => {
         return [...prevValue, currentLetter];
       });
-      console.log(currentFolkIndex);
 
       switch (currentFolkIndex + 1) {
         case 1:
@@ -221,9 +216,7 @@ function App() {
             break;
         }
       });
-      console.log(correctCount)
-      console.log(currentWord.length)
-      console.log(indices.length)
+    
       if (correctCount + indices.length === currentWord.length) {
         setFeedback("YOU WON");
         setShowOverlay(true);
@@ -234,56 +227,57 @@ function App() {
 
   return (
     <div className="App">
-      <div
-        className="overlay"
-        onClick={() => {
-          setShowOverlay(false);
-          window.location.reload();
-        }}
-        style={{ display: [!showOverlay ? "none" : "block"] }}
-      >
-        <div className="text">
-          <h className="main_text">{feedback}</h>
-          <h className="button_text">NEW WORD</h>
-        </div>
-      </div>
-      <div className="bar">
-        <img src={bar} alt="bar" />
-        <div className="folk">
-          <img src={currentFolk} />
-        </div>
-      </div>
-
-      <div className="mistakes">
-        <p>You Missed:</p>
-        <h>{wrongLetters}</h>
-      </div>
-
-      <div className="form">
-        {getAllInputs() && (
-          <div style={{ display: "block" }}>
-            {getAllInputs().map((item) => {
-              return item;
-            })}
-          </div>
-        )}
-        <div className="input-form-control">
-        <input
-          className="input-control"
-          ref={inputValueRef}
-          type="text"
-          placeholder="please enter a letter"
-          maxLength="1"
-          onChange={(e) => {
-            setCurrentLetter(e.target.value);
+      <div className="container">
+        <div className="rect-cross"></div>
+        <div
+          className="overlay"
+          onClick={() => {
+            setShowOverlay(false);
+            window.location.reload();
           }}
-        />
-        <button
-          onClick={handleSubmit}
+          style={{ display: [!showOverlay ? "none" : "block"] }}
         >
-          submit
-        </button>
-        </div> 
+          <div className="text">
+            <h className="main_text">{feedback}</h>
+            <h className="button_text">NEW WORD</h>
+          </div>
+        </div>
+        <div className="d-flex pt-3 justify-content-space-between">
+          <div className="bar">
+            <img src={bar} alt="bar" />
+            <div className="folk">
+              <img src={currentFolk} />
+            </div>
+          </div>
+
+          <div className="mistakes">
+            <p className="missed">You Missed:</p>
+            <h>{wrongLetters}</h>
+          </div>
+        </div>
+
+        <div className="form">
+          {getAllInputs() && (
+            <div className="form-div">
+              {getAllInputs().map((item) => {
+                return item;
+              })}
+            </div>
+          )}
+          <div className="input-form-control">
+            <input
+              className="input-control"
+              ref={inputValueRef}
+              type="text"
+              placeholder="Please enter a letter"
+              maxLength="1"
+              onChange={(e) => {
+                setCurrentLetter(e.target.value);
+              }}
+            />
+            <button onClick={handleSubmit}>submit</button>
+          </div>
+        </div>
       </div>
     </div>
   );
