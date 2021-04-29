@@ -279,8 +279,9 @@ function App() {
               }}
             />
             <button onClick={handleSubmit}>submit</button>
-            <p>{error}</p>
+            
           </div>
+          <p>{error}</p>
         </div>
       </div>
     </div>
