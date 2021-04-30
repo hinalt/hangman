@@ -42,7 +42,7 @@ function App() {
       "http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=0&minLength=5&maxLength=15&limit=1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
     const res = await fetch(url);
     const data = await res.json();
-    let word = data[0].word;
+    let word = data[0]?data[0].word:'mobile';
     if (word.length > 11) word = word.slice(0, 11);
     setCurrentWord(word);
   }
